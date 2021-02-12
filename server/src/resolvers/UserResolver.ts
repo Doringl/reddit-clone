@@ -60,14 +60,14 @@ export class UserResolver {
     @Arg('inputs') inputs: UsernameAndPasswordInputs,
     @Ctx() { em, req }: myContext
   ): Promise<UserResponse> {
-    if (inputs.username.length < 3) {
+    if (inputs.username.length <= 2) {
       return {
         errors: [
           { field: 'username', message: 'length must be greater than 2' },
         ],
       };
     }
-    if (inputs.password.length < 6) {
+    if (inputs.password.length <= 5) {
       return {
         errors: [
           { field: 'password', message: 'length must be greater than 5' },
