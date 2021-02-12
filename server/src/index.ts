@@ -11,6 +11,7 @@ import { UserResolver } from './resolvers/UserResolver';
 import redis from 'redis';
 import session from 'express-session';
 import { myContext } from './types/types';
+import cors from 'cors';
 
 (async () => {
   const orm = await MikroORM.init(mikroConfig);
@@ -21,6 +22,7 @@ import { myContext } from './types/types';
   let RedisStore = require('connect-redis')(session);
   let redisClient = redis.createClient();
 
+  app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
   app.use(
     session({
       name: 'qid',
@@ -45,7 +47,7 @@ import { myContext } from './types/types';
     context: ({ req, res }): myContext => ({ em: orm.em, req, res }),
   });
 
-  apolloServer.applyMiddleware({ app });
+  apolloServer.applyMiddleware({ app, cors: false });
 
   //const post = orm.em.create(Post, { title: 'my title' });
   //await orm.em.persistAndFlush(post);

@@ -29,7 +29,7 @@ export const InputField: React.FC<UseControllerProps> = (props) => {
             props.type !== 'password' ? props.type : show ? 'text' : props.type
           }
           errorBorderColor='crimson'
-          isRequired={true}
+          //isRequired={true}
           isInvalid={meta.invalid}
         />
         {props.type === 'password' ? (
